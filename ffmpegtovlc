@@ -1,0 +1,15 @@
+sudo apt-get install ffmpeg 
+sudo apt-get install v4l2-ctl
+sudo v4l2-ctl --list-devices //check camera connected to your server pc
+wget https://github.com/aler9/rtsp-simple-server/releases/download/v0.16.0/rtsp-simple-server_v0.16.0_linux_amd64.tar.gz
+tar -xzvf rtsp-simple-server_v0.16.0_linux_amd64.tar.gz
+hostname -I //copy your serverpc ip 
+rtspServer=192.168.XXX.XXX:rtsp://192.168.XXX.XXX:8554/webCamStream ./rtsp-simple-server
+//////Open a new terminal
+sudo v4l2-ctl --list-devices    
+//////push video stream from webcam to RTSP server:
+sudo ffmpeg -f v4l2 -framerate 24 -video_size 480x480 -i /dev/video0 -f rtsp -rtsp_transport tcp rtsp://192.168.XXX.XXX:8554/webCamStream
+ffplay "rtsp://192.168.XXX.XXX:8554/webCamStream"  ////Last step is to check and view your RTSP feed: 
+                                                          open a new terminal and check with the following command
+///for vlc
+sudo vlc rtsp://192.168.XXX.XXX:8554/webCamStream
