@@ -1,3 +1,5 @@
+for linux 
+
 sudo apt-get install ffmpeg 
 sudo apt-get install v4l2-ctl
 sudo v4l2-ctl --list-devices //check camera connected to your server pc
@@ -13,3 +15,48 @@ ffplay "rtsp://192.168.XXX.XXX:8554/webCamStream"  ////Last step is to check and
                                                           open a new terminal and check with the following command
 ///for vlc
 sudo vlc rtsp://192.168.XXX.XXX:8554/webCamStream
+
+
+for windows
+
+
+
+
+download ffmpeg files from ffmpeg website
+
+open terminal > ffmpeg -list_devices true -f dshow -i dummy ///cmd to show camera in winodws
+
+
+
+ffmpeg-7.0.1-essentials_build.zip 
+extract this zip file 
+
+ffmpeg-7.0.1-essentials_build
+
+cd ffmpeg-7.0.1-essentials_build\ffmpeg-7.0.1-essentials_build\bin
+
+ffmpeg-7.0.1-essentials_build\ffmpeg-7.0.1-essentials_build\bin> 
+
+to get output on vlc we want to start a rtmp server 
+
+download mediamtx ( https://sourceforge.net/projects/rtspsimpleserver.mirror/)
+
+extract downloaded file 
+open cmd in that folder
+> mediamtx
+
+the we can see some port that do service in rtsp,udp,http..etc
+
+create a out link 
+
+eg. rtsp://yourip:8554/yourname ///here 8554 is default port for rtsp
+then 
+
+go back to ffmpeg folder 
+
+open terminal there 
+
+ffmpeg-7.0.1-essentials_build\ffmpeg-7.0.1-essentials_build\bin> 
+ >  ffmpeg -f dshow -i video=yourcameraid -f rtsp -rtsp_transport tcp rtsp://yourip:8554/yourname
+the paste 
+rtsp://yourip:8554/yourname in vlc to get output
